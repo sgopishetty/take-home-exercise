@@ -38,7 +38,7 @@ pipeline {
         stage ('Docker Publish') {
             steps {
                 script {
-                    docker.withRegistry('') {
+                    docker.withRegistry('bnikkhil14/take-home-exercise') {
                         dockerImage.push()
                     }
                 }
