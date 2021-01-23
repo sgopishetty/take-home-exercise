@@ -1,6 +1,7 @@
 pipeline {
     environment {
         registry = "bnikkhil14/take-home-exercise"
+        registryCredential = "dockerhub"
         dockerImage = ""
     }
     agent any
@@ -38,7 +39,7 @@ pipeline {
         stage ('Docker Publish') {
             steps {
                 script {
-                    docker.withRegistry('bnikkhil14/take-home-exercise') {
+                    docker.withRegistry('', registryCredential) {
                         dockerImage.push()
                     }
                 }
