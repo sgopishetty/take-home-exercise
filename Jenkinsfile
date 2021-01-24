@@ -1,3 +1,7 @@
+parameters {
+   string(name: 'git_commit_hash', defaultValue: 'default', description: 'Git Commit Hash')
+}
+
 pipeline {
     environment {
         registry = "bnikkhil14/take-home-exercise"
@@ -17,6 +21,18 @@ pipeline {
                     echo "M2_HOME = ${M2_HOME}"
                 ''' 
             }
+        }
+        
+        stage('Clone repository') {
+        /* Let's make sure we h ave the repository cloned to our workspace */
+
+        /*checkout scm*/
+        checkout ([
+            $class: 'GitSCM',
+            branches: [[name: "${params.git_commit_hash}" ]],
+            userRemoteConfigs: [[
+            url: 'https://github.com/armory/Mainstay.git']]
+                   ])
         }
 
         stage ('Code Build') {
