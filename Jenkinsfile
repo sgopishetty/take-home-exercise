@@ -24,16 +24,10 @@ pipeline {
         }
         
         stage('Clone repository') {
-        /* Let's make sure we h ave the repository cloned to our workspace */
-
-        /*checkout scm*/
-        checkout ([
-            $class: 'GitSCM',
-            branches: [[name: "${params.git_commit_hash}" ]],
-            userRemoteConfigs: [[
-            url: 'https://github.com/armory/Mainstay.git']]
-                   ])
-        }
+           steps {
+              checkout([$class: 'GitSCM', branches: [[name: '${params.git_commit_hash}']], 
+                        userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/sgopishetty/take-home-exercise.git']]])
+           }
 
         stage ('Code Build') {
             steps {
